@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy & Zero-Exfiltration Specification — MomoTTS</title>
+  <meta name="description" content="MomoTTS enforces a deterministic Zero-Exfiltration Architecture: all synthesis runs on-device. Read the full technical privacy protocol, storage classification, and compliance notes.">
+  <link rel="canonical" href="https://bilal140202.github.io/momotts/privacy/">
+  <link rel="icon" type="image/svg+xml" href="../assets/mascot/momo_master_icon.svg">
+  <meta name="theme-color" content="#F7F2E9">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+
+  <div class="scroll-tape" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="wordmark">
+        <img src="../assets/mascot/momo_master_icon.svg" alt="MomoTTS logo">
+        MomoTTS<sup>®</sup>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../features/index.html">Features</a></li>
+          <li><a href="index.html" aria-current="page">Privacy</a></li>
+          <li><a href="../about/index.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="https://ansaribilal.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">ansaribilal.com</a>
+        <a href="../download/index.html" class="btn btn-primary btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          Get v1.0
+        </a>
+        <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-sheet" aria-hidden="true">
+    <a href="../index.html">Home <i>00</i></a>
+    <a href="../features/index.html">Features <i>01</i></a>
+    <a href="index.html">Privacy <i>02</i></a>
+    <a href="../about/index.html">About <i>03</i></a>
+    <a href="../download/index.html">Download <i>→</i></a>
+  </div>
+
+  <main class="page-body">
+    <section class="page-hero">
+      <div class="container">
+        <div class="crumbs"><a href="../index.html">home</a> <span>/</span> <span>privacy</span></div>
+        <h1 class="display-xl">The <span class="serif-pink">zero-exfiltration</span> specification.</h1>
+        <p class="lead">The formal data-protection protocol behind MomoTTS — written to be read, not buried. Version 1.0.0 · Effective August 21, 2026 · Architect: Ansari Bilal.</p>
+      </div>
+    </section>
+
+    <section class="band" style="padding-top: 24px;">
+      <div class="container prose">
+
+        <div class="callout reveal">
+          <b>Abstract — the Zero-Exfiltration Guarantee.</b> All neural acoustic synthesis, phonemization,
+          text chunking, and master audio stitching execute strictly within the sandboxed local process memory
+          of the host Android operating system. No user text, speech output, voice selection, or telemetry data
+          is collected, stored, or transmitted over any external network. The app contains no analytics SDK,
+          no advertising framework, and no crash-reporting beacon.
+        </div>
+
+        <h3>1 · Threat model & data flow</h3>
+        <p>
+          Cloud-hosted TTS APIs create an unavoidable surveillance surface: your words must travel to a server,
+          be processed by someone else's hardware, and travel back. MomoTTS eliminates that surface by design
+          rather than by promise. The pipeline respects three hard computational boundaries:
+        </p>
+        <ul>
+          <li><strong>Text ingestion layer.</strong> Text provided to the Voice Studio or Dialogue Editor lives only in ephemeral memory owned by the app process. No remote logging, no keystroke analysis, no "anonymized" copy.</li>
+          <li><strong>Inference execution layer.</strong> Neural graph execution runs exclusively on local hardware through compiled native ONNX runtimes. Model weights are read from sandboxed device storage; no sockets open.</li>
+          <li><strong>Audio stitching layer.</strong> Generated PCM samples are compiled into WAV or MP3 containers on device, where they remain accessible only to you until you explicitly export or share them.</li>
+        </ul>
+
+        <h3>2 · Storage classification & permissions</h3>
+        <p>MomoTTS limits internal storage strictly to operational requirements — every byte is itemized below.</p>
+        <table>
+          <thead><tr><th>Storage category</th><th>Physical location</th><th>Lifetime</th><th>Your control</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Voice model assets</strong></td><td>App-private internal data (<code>…/models/</code>)</td><td>Until deleted or uninstalled</td><td>Voice Hub management UI</td></tr>
+            <tr><td><strong>Temporary audio chunks</strong></td><td>App-private cache (<code>/tts_cache/</code>)</td><td>Per-session</td><td>1-tap cache purge in Settings</td></tr>
+            <tr><td><strong>Project metadata</strong></td><td>Sandboxed SQLite database</td><td>Persistent on device</td><td>Project drawer deletion</td></tr>
+          </tbody>
+        </table>
+        <p>
+          MomoTTS requests <strong>no dangerous permissions</strong> — there is no storage-permission surface,
+          no contacts, no location, no microphone. Recordings made of <em>text you paste or type</em> are
+          synthesized speech, not captured audio of you.
+        </p>
+
+        <h3>3 · Telemetry, analytics & advertising</h3>
+        <p>
+          Zero. No behavioral analytics SDKs, no advertising identifiers, no crash reporters with network
+          egress. The network interface is used for exactly one purpose: user-initiated retrieval of neural
+          voice model weights from the Voice Hub. Once a model is cached locally, the radio stays idle during
+          all synthesis — airplane mode is fully supported and functionally identical.
+        </p>
+
+        <h3>4 · Children's privacy (COPPA / GDPR)</h3>
+        <p>
+          Because MomoTTS collects zero personally identifiable information from any user, it operates in
+          strict compliance with the Children's Online Privacy Protection Act (COPPA) and Article 8 of the
+          General Data Protection Regulation (GDPR). The application is safe for users of all age brackets —
+          there is simply no data to profile, sell, or leak.
+        </p>
+
+        <h3>5 · Your rights & data erasure</h3>
+        <p>Under GDPR, CCPA, and global privacy frameworks you hold complete ownership of your data. Because every asset is local, exercising those rights is instant and does not require trusting anyone:</p>
+        <ul>
+          <li><strong>Right of access.</strong> All generated WAV and MP3 files are directly inspectable, playable, and exportable on the device — no request forms, no waiting periods.</li>
+          <li><strong>Right to erasure.</strong> Purge temporary audio buffers instantly via <em>Settings → Clear Temporary Audio Cache</em>, or remove every project record by clearing app storage in Android system settings. Uninstalling removes all of it, permanently.</li>
+        </ul>
+
+        <h3>6 · Third-party engine attributions</h3>
+        <p>
+          The studio stands on the shoulders of open-source speech research. Inference is orchestrated by the
+          <strong>Sherpa-ONNX</strong> runtime; voices are built on <strong>Piper VITS</strong> (MIT-licensed
+          tooling and models) and the <strong>Kokoro-82M</strong> architecture (Apache 2.0). Their licenses are
+          respected without modification, and no voice model is bundled without its upstream terms intact.
+        </p>
+
+        <h3>7 · Changes to this specification</h3>
+        <p>
+          If the architecture ever changes — it hasn't, and the roadmap says it won't — this document is
+          versioned and dated at the top of the page. The app itself ships no ability to silently alter its
+          data behavior, because it ships no update channel other than the releases you explicitly install.
+        </p>
+
+        <div class="callout reveal">
+          <b>One sentence version.</b> Your words never leave your phone — not because a policy promises it,
+          but because the app contains no code path that could.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="band">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div class="cta-inner" style="grid-template-columns: 1fr;">
+            <div style="text-align:center;">
+              <span class="mono-label">SPEAK FREELY</span>
+              <h2 class="display-lg">Privacy by <span class="serif-accent">architecture,</span> not by policy.</h2>
+              <p style="margin-inline:auto;">Install the studio that keeps your words in your pocket.</p>
+              <div style="margin-top: 30px;">
+                <a href="../download/index.html" class="btn btn-primary">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                  Download MomoTTS v1.0
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="wordmark">
+            <img src="../assets/mascot/momo_master_icon.svg" alt="MomoTTS logo">
+            MomoTTS<sup>®</sup>
+          </a>
+          <p>The 100% on-device neural speech studio for Android. Built for people who read with their ears — and who'd rather keep their words to themselves.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="../index.html#playground">Playground</a></li>
+            <li><a href="../index.html#tracks">What's inside</a></li>
+            <li><a href="../index.html#voices">Voice hub</a></li>
+            <li><a href="../features/index.html">Feature deep-dive</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get it</h4>
+          <ul>
+            <li><a href="../download/index.html">Download hub</a></li>
+            <li><a href="../download/index.html#verify">Checksum verification</a></li>
+            <li><a href="../download/index.html#install">Install guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Studio desk</h4>
+          <ul>
+            <li><a href="index.html">Privacy receipt</a></li>
+            <li><a href="../about/index.html">About the creator</a></li>
+            <li><a href="https://ansaribilal.com" target="_blank" rel="noopener noreferrer">ansaribilal.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© <span class="yearNow">2026</span> Momo TTS Studio. Recorded, mixed &amp; mastered by <a href="https://ansaribilal.com" target="_blank" rel="noopener noreferrer" style="color: var(--tangerine);">Ansari Bilal</a>.</div>
+        <div class="footer-legal">
+          <a href="index.html">Zero-telemetry policy</a>
+          <a href="https://ansaribilal.com" target="_blank" rel="noopener noreferrer">ansaribilal.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">MOMO<em>TTS</em></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

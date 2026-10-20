@@ -1,0 +1,73 @@
+<svg viewBox="0 0 512 512" width="512" height="512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blHpBand" x1="100" y1="80" x2="412" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4338CA"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="blBody" x1="160" y1="140" x2="360" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#FFF5F5"/>
+      <stop offset="100%" stop-color="#FED7AA"/>
+    </linearGradient>
+    <linearGradient id="blHpCushion" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="blEarInner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDA4AF"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <radialGradient id="blBlush" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF2E93" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FF2E93" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blShadow" x="50" y="60" width="412" height="412" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Headphone Band -->
+  <path d="M 120 270 C 110 130, 402 130, 392 270" stroke="url(#blHpBand)" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M 135 250 C 130 155, 382 155, 377 250" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+  <!-- Body & Ears -->
+  <g filter="url(#blShadow)">
+    <ellipse cx="170" cy="155" rx="36" ry="52" transform="rotate(-20 170 155)" fill="#FFFFFF"/>
+    <ellipse cx="170" cy="155" rx="22" ry="36" transform="rotate(-20 170 155)" fill="url(#blEarInner)"/>
+    <ellipse cx="342" cy="155" rx="36" ry="52" transform="rotate(20 342 155)" fill="#FFFFFF"/>
+    <ellipse cx="342" cy="155" rx="22" ry="36" transform="rotate(20 342 155)" fill="url(#blEarInner)"/>
+    <path d="M 256 145 C 366 145, 400 210, 400 298 C 400 390, 350 412, 256 412 C 162 412, 112 390, 112 298 C 112 210, 146 145, 256 145 Z" fill="url(#blBody)" stroke="#FFE4E6" stroke-width="2"/>
+  </g>
+
+  <!-- Left Cushion -->
+  <rect x="88" y="240" width="46" height="84" rx="23" fill="url(#blHpCushion)"/>
+  <rect x="100" y="250" width="22" height="64" rx="11" fill="#FFFFFF" fill-opacity="0.35"/>
+  <circle cx="111" cy="282" r="6" fill="#FFFFFF"/>
+
+  <!-- Right Cushion -->
+  <rect x="378" y="240" width="46" height="84" rx="23" fill="url(#blHpCushion)"/>
+  <rect x="390" y="250" width="22" height="64" rx="11" fill="#FFFFFF" fill-opacity="0.35"/>
+  <circle cx="401" cy="282" r="6" fill="#FFFFFF"/>
+
+  <!-- Blush Cheeks -->
+  <circle cx="170" cy="310" r="26" fill="url(#blBlush)"/>
+  <circle cx="342" cy="310" r="26" fill="url(#blBlush)"/>
+
+  <!-- Left Eye: Happy Blinking Arc -->
+  <path d="M 186 268 Q 204 286, 222 268" stroke="#18181B" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <path d="M 184 266 L 176 260" stroke="#18181B" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Right Eye: Happy Blinking Arc -->
+  <path d="M 290 268 Q 308 286, 326 268" stroke="#18181B" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <path d="M 328 266 L 336 260" stroke="#18181B" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Happy Mouth -->
+  <path d="M 242 292 Q 256 308, 270 292" stroke="#18181B" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M 249 299 Q 256 310, 263 299 Z" fill="#FB7185"/>
+
+  <!-- Equalizer Header Waves -->
+  <rect x="368" y="112" width="6" height="22" rx="3" fill="#FF6B8B"/>
+  <rect x="380" y="98" width="6" height="38" rx="3" fill="#FF8E53"/>
+  <rect x="392" y="106" width="6" height="28" rx="3" fill="#FFAE33"/>
+</svg>
