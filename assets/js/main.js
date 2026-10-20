@@ -56,16 +56,16 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }
 
-  /* ---------- Wipe reveals ---------- */
+  /* ---------- Wipe reveals (threshold near zero: clipped slivers must fire) ---------- */
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  }, { threshold: 0.001, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   /* ---------- Hero entrance ---------- */
-  const hero = document.getElementById('homeHero');
+  const hero = document.querySelector('.hero');
   if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
 
   /* ---------- Counters ---------- */

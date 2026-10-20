@@ -151,8 +151,10 @@ code, kbd { font-family: var(--font-mono); }
 .band-head h2 { flex: 1 1 340px; }
 .band-head .head-note { max-width: 320px; color: var(--ink-dim); font-size: 0.92rem; line-height: 1.55; }
 
-/* Reveal motion — vertical wipe, different from MomoStack fade-up */
-.reveal { opacity: 0; transform: translateY(26px); clip-path: inset(0 0 100% 0); }
+/* Reveal motion — vertical wipe, different from MomoStack fade-up.
+   NOTE: initial clip keeps a 4% top sliver — clipping to 100% makes the
+   element a zero-area target and IntersectionObserver never fires. */
+.reveal { opacity: 0; transform: translateY(26px); clip-path: inset(0 0 96% 0); }
 .reveal.is-in {
   opacity: 1; transform: none; clip-path: inset(-10% 0 -10% 0);
   transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), clip-path 1.1s var(--ease-out);
