@@ -297,3 +297,11 @@ components remain under their respective licenses: Sherpa-ONNX (Apache 2.0), Pip
 tooling and models (MIT), Kokoro-82M (Apache 2.0) — see the
 [privacy specification](https://bilal140202.github.io/momotts/privacy/) section 6 for
 attributions.
+
+---
+
+## Project status
+
+**Completed project** — verified in the portfolio audit of **7 November 2026** (README, codebase and project state reviewed).
+
+_Last verified: 7 November 2026_
